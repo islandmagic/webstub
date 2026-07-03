@@ -1,7 +1,5 @@
 module WebStub
   module API
-    extend self
-
     def disable_network_access!
       protocol.disable_network_access!
     end
@@ -18,12 +16,12 @@ module WebStub
       protocol.reset_stubs
     end
 
-    private
-
     def protocol
       Dispatch.once { NSURLProtocol.registerClass(WebStub::Protocol) }
 
       Protocol
     end
+
+    module_function :disable_network_access!, :enable_network_access!, :stub_request, :reset_stubs
   end
 end
